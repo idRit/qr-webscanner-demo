@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Result</title>
+</head>
+
+<body onload="load()">
+    <div class="con">
+
+    </div>
+    <script>
+        async function load() {
+            let result = location.href.split('/').reverse()[0];
+            let baseURL = location.href.split('/').reverse()[1];
+            await action(result, baseURL);
+        }
+
+        async function action(result, baseURL) {
+            //Do something with the obtained result!
+            alert(result);
+            
+            //Go back to previous page automatically!
+            goBack(baseURL);
+        }
+
+        function goBack(baseURL) {
+            location.href = baseURL;
+        }
+    </script>
+</body>
+
+</html>

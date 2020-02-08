@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>QR Scanner Demo</title>
+</head>
+
+<body>
+    <center>
+
+        <h1>Scan from WebCam: </h1>
+        <div>
+            <b>Device has camera: </b>
+            <span id="cam-has-camera"></span>
+            <br>
+            <video muted playsinline id="qr-video"></video>
+        </div>
+        <b>Detected QR code: </b>
+        <span id="cam-qr-result">None</span>
+        <br>
+        <hr>
+    </center>
+
+    <script type="module">
+        import QrScanner from "./libs/qr-scanner.min.js";
+        QrScanner.WORKER_PATH = './libs/qr-scanner-worker.min.js';
+
+        const video = document.getElementById('qr-video');
+        const camHasCamera = document.getElementById('cam-has-camera');
+        const camQrResult = document.getElementById('cam-qr-result');
+
+        async function setResult(label, result) {
+            console.log(result);
+            location.href = "https://sdscan.azurewebsites.net/result/" + result;
+        }
+
+        QrScanner.hasCamera().then(hasCamera => camHasCamera.textContent = hasCamera);
+
+        const scanner = new QrScanner(video, result => setResult(camQrResult, result));
+
+        scanner.start();
+    </script>
+</body>
+
+</html>
